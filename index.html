@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gas Stations</title>
+<meta name="viewport"
+    content="width=device-width, initial-scale=1, user-scalable=no"
+    , charset="utf-8">
+<link rel="stylesheet" href="resources/css/ABALTA.css" />
+<link rel="stylesheet"
+    href="resources/css/jquery.mobile.structure-1.3.0.min.css" />
+<link rel="stylesheet" href="resources/css/jquery.jscrollpane.css" />
+
+<script src="sources/libs/jquery/jquery-1.8.3.min.js"
+    type="text/javascript"></script>
+<script src="sources/libs/jquerymobile/jquery.mobile-1.3.0.min.js"
+    type="text/javascript"></script>
+<script src="sources/libs/jqueryjscrollpane/jquery.jscrollpane.js"
+    type="text/javascript"></script>
+<script src="sources/libs/inrix/inrix.3.0.js"></script>
+
+
+<script type="text/javascript" charset="utf-8"
+    src="sources/app/AppManager.js"></script>
+<script type="text/javascript" charset="utf-8"
+    src="sources/helper/Helper.js"></script>
+<script type="text/javascript" charset="utf-8"
+    src="sources/app/NotificationList.js"></script>
+<script type="text/javascript" charset="utf-8"
+    src="sources/services/ServiceManager.js"></script>
+<script type="text/javascript" charset="utf-8"
+    src="sources/models/ModelManager.js"></script>
+<script type="text/javascript" charset="utf-8"
+    src="sources/controllers/ControllerManager.js"></script>
+<!--<script type="text/javascript" charset="utf-8"
+    src="sources/services/GasStationsService_MyGasFeed.js"></script>-->
+<script type="text/javascript" charset="utf-8"
+    src="sources/services/GasStationsService_INRIX.js"></script>    
+<script type="text/javascript" charset="utf-8"
+    src="sources/models/GasStationsModel.js"></script>
+<script type="text/javascript" charset="utf-8"
+    src="sources/controllers/GasStationsController.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        gasstationsapp.app.AppManager.init();
+    });
+</script>
+
+</head>
+<body>
+
+    <div id="stationListPage" data-role="page" data-theme="a">
+        <div data-role="content" data-theme="a">
+            <div id="navbar" class="ui-grid-d">
+                <div class="ui-block-a">
+                    <span id="logo" class="fuelPrices"></span>
+                </div>
+                <div class="ui-block-b white">
+                    Last Update: <label id="listUpdatedTime"> </label>
+                </div>
+                <div class="ui-block-c">
+                    <a id="fuelType" href="#popupFuelType"
+                        data-role="button"
+                        class="top-button top-button-abalta center-button"
+                        data-inline="true" data-icon="false"
+                        data-iconpos="top" data-shadow="none"
+                        data-rel="popup">Regular</a>
+
+                    <!--  popup fuelType   -->
+                    <div data-role="popup" id="popupFuelType"
+                        data-corners="true" data-tolerance="300, 0, 0, 666">
+                        <a href="#" data-rel="back" data-role="button"
+                            data-theme="a" data-icon="delete"
+                            data-iconpos="notext"
+                            class="ui-btn-right ui-btn-close-abalta-black">Close</a>
+                        <fieldset data-role="controlgroup"
+                            class="fuelType"
+							data-iconpos = "left">
+                            <legend>&nbsp;</legend>
+                            <input type="radio"
+                                name="radio-choice-fuelType"
+                                id="radio-choice-1" value="regular"
+                                checked="checked" /> <label
+                                for="radio-choice-1">Regular</label> <input
+                                type="radio"
+                                name="radio-choice-fuelType"
+                                id="radio-choice-2" value="midgrade" />
+                            <label for="radio-choice-2">Midgrade</label>
+                            <input type="radio"
+                                name="radio-choice-fuelType"
+                                id="radio-choice-3" value="premium" />
+                            <label for="radio-choice-3">Premium</label>
+                            <input type="radio"
+                                name="radio-choice-fuelType"
+                                id="radio-choice-4" value="diesel" /> <label
+                                for="radio-choice-4">Diesel</label>
+                        </fieldset>
+                    </div>
+                    <!--  /popup   -->
+
+                </div>
+
+                <div class="ui-block-d">
+                    <a id="sortBy" href="#popupSortBy"
+                        data-role="button"
+                        class="top-button top-button-abalta sort-by-price"
+                        data-inline="true" data-icon="false"
+                        data-iconpos="top" data-shadow="none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+
+                </div>
+                <div class="ui-block-e">
+                    <a id="page-refresh" href="#" data-role="button"
+                        class="top-button top-button-abalta"
+                        data-inline="true" data-icon="false"
+                        data-shawdow="false" data-iconpos="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </div>
+            </div>
+            <!-- end navbar -->
+
+            <!--  list of Gas Stations -->
+            <div id="scrollPane">
+                    <ul id="stationList" data-role="listview"
+                        data-scroll="true" data-icon="abalta-black" class="scrollbar-padding">
+
+                        <li><a href="#stationDetail">
+                                <div class="ui-grid-b">
+                                    <div class="ui-block-a">
+                                        <span class="gasStationID"></span>
+                                        <label class="gasStationName">&nbsp;</label>
+                                        <p
+                                            class="gasStationAddress subtitle blue">&nbsp;</p>
+                                    </div>
+                                    <div class="ui-block-b">
+                                        &nbsp; <label
+                                            class="gasStationUpdated">
+                                            &nbsp;</label>
+                                    </div>
+                                    <div class="ui-block-c">
+                                        <label class="gasPrice">&nbsp;</label>
+                                        <p
+                                            class="gasStationDistance blue">&nbsp;</p>
+                                    </div>
+                                </div>
+                        </a></li>
+
+                        <li><a href="#stationDetail">
+                                <div class="ui-grid-b">
+                                    <div class="ui-block-a">
+                                        <span class="gasStationID"></span>
+                                        <label class="gasStationName">&nbsp;</label>
+                                        <p
+                                            class="gasStationAddress subtitle blue">&nbsp;</p>
+                                    </div>
+                                    <div class="ui-block-b">
+                                        &nbsp; <label
+                                            class="gasStationUpdated">
+                                            &nbsp;</label>
+                                    </div>
+                                    <div class="ui-block-c">
+                                        <label class="gasPrice">&nbsp;</label>
+                                        <p
+                                            class="gasStationDistance blue">&nbsp;</p>
+                                    </div>
+                                </div>
+                        </a></li>
+
+                        <li><a href="#stationDetail">
+                                <div class="ui-grid-b">
+                                    <div class="ui-block-a">
+                                        <span class="gasStationID"></span>
+                                        <label class="gasStationName">&nbsp;</label>
+                                        <p
+                                            class="gasStationAddress subtitle blue">&nbsp;</p>
+                                    </div>
+                                    <div class="ui-block-b">
+                                        &nbsp; <label
+                                            class="gasStationUpdated">
+                                            &nbsp;</label>
+                                    </div>
+                                    <div class="ui-block-c">
+                                        <label class="gasPrice">&nbsp;</label>
+                                        <p
+                                            class="gasStationDistance blue">&nbsp;</p>
+                                    </div>
+                                </div>
+                        </a></li>
+
+                        <li><a href="#stationDetail">
+                                <div class="ui-grid-b">
+                                    <div class="ui-block-a">
+                                        <span class="gasStationID"></span>
+                                        <label class="gasStationName">&nbsp;</label>
+                                        <p
+                                            class="gasStationAddress subtitle blue">&nbsp;</p>
+                                    </div>
+                                    <div class="ui-block-b">
+                                        &nbsp; <label
+                                            class="gasStationUpdated">
+                                            &nbsp;</label>
+                                    </div>
+                                    <div class="ui-block-c">
+                                        <label class="gasPrice">&nbsp;</label>
+                                        <p
+                                            class="gasStationDistance blue">&nbsp;</p>
+                                    </div>
+                                </div>
+                        </a></li>
+
+                        <li><a href="#stationDetail">
+                                <div class="ui-grid-b">
+                                    <div class="ui-block-a">
+                                        <span class="gasStationID"></span>
+                                        <label class="gasStationName">&nbsp;</label>
+                                        <p
+                                            class="gasStationAddress subtitle blue">&nbsp;</p>
+                                    </div>
+                                    <div class="ui-block-b">
+                                        &nbsp; <label
+                                            class="gasStationUpdated">
+                                            &nbsp;</label>
+                                    </div>
+                                    <div class="ui-block-c">
+                                        <label class="gasPrice">&nbsp;</label>
+                                        <p
+                                            class="gasStationDistance blue">&nbsp;</p>
+                                    </div>
+                                </div>
+                        </a></li>
+
+                    </ul>
+
+            </div>
+        </div>
+    </div>
+    <!-- end page station list -->
+
+    <!-- single page Station page -->
+    <div data-role="page" id="stationDetail" data-theme="a">
+        <div data-role="content">
+            <div id="navbarDetail" class="ui-grid-b">
+                <div class="ui-block-a" id="stationInfoBlock">
+                    <label class="gasStationId"></label> <label
+                        class="gasStationName white floatLeft">&nbsp;&nbsp;&nbsp;</label>
+                    <label
+                        class="subtitle gasStationAddress floatLeft clearBoth">&nbsp;&nbsp;&nbsp;&nbsp;</label> <label
+                        class="white lastUpdated floatLeft clearBoth bottom-position">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="ui-block-b">
+                    <a id="pageBack" href="#stationListPage"
+                        data-role="button" class="top-button-abalta">&nbsp;</a>
+                </div>
+            </div>
+            <!-- end navigation bar detail -->
+
+            <ul id="fuelPrices" data-role="listview" data-scroll="true"
+                data-icon="abalta-black">
+                <li>
+                    <div class="ui-grid-b">
+                        <label class="fuelType ui-block-a">
+                            Regular </label> <label class="fuelPrice ui-block-b">
+                            $&nbsp;&nbsp;&nbsp; </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui-grid-b">
+                        <label class="fuelType ui-block-a">
+                            Midgrade </label> <label
+                            class="fuelPrice ui-block-b">
+                            $&nbsp;&nbsp;&nbsp; </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui-grid-b">
+                        <label class="fuelType ui-block-a">
+                            Premium </label> <label class="fuelPrice ui-block-b">
+                            $&nbsp;&nbsp;&nbsp; </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui-grid-b">
+                        <label class="fuelType ui-block-a">
+                            Diesel </label> <label class="fuelPrice ui-block-b">
+                            $&nbsp;&nbsp;&nbsp; </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="ui-grid-b">
+                        <label class="fuelType ui-block-a">
+                            &nbsp; </label> <label class="fuelPrice ui-block-b">
+                            &nbsp;&nbsp;&nbsp; </label>
+                    </div>
+                </li>
+            </ul>
+            <div id="mapDetail">
+                <span class="stationMapHolder floatLeft clearBoth">
+                    <img src="" alt="Loading map.."
+                    onerror="this.src='resources/images/loading_map.gif'" />
+                </span> <label class="distance floatLeft clearBoth"> </label>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /single page Station page -->
+
+</body>
+</html>
