@@ -36,10 +36,6 @@ label,p {
     left: -15%!important;
 }
 
-.ui-li .ui-btn-inner a.ui-link-inherit {
-    padding: .66em 15px !important; 
-}
-
 .ui-btn-icon-top .ui-icon,.ui-btn-icon-left>.ui-btn-inner>.ui-icon,.ui-btn-icon-right>.ui-btn-inner>.ui-icon
 {
     top: 3px !important;
@@ -397,8 +393,6 @@ a#page-refresh.ui-btn-down-a {
 
 #stationListPage {
     width: 800px;
-    max-height:480px;
-    overflow: hidden;
 }
 
 #stationList { /* temporary only. to do: scrollable list */
