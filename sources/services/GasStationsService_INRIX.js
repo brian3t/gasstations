@@ -1,28 +1,7 @@
 ﻿/**
- * 
- * @file GasStationsService_INRIX.js
- * @fileOverview 
- * File containing the declaration of the GasStationsService_INRIX class.
- * 
- * @author Abalta Technologies, Inc.
- * @date March, 2013
- *
- * @cond Copyright
- *
- * COPYRIGHT 2007 ABALTA TECHNOLOGIES or "CUSTOMER NAME"
- * ALL RIGHTS RESERVED.<p>
- * This program may not be reproduced, in whole or in
- * part in any form or any means whatsoever without the
- * written permission of ABALTA TECHNOLOGIES or "CUSTOMER
- * NAME".
- *
- * @endcond
+ * @namespace Namespace of the current web application.
  */
-
-        /**
-         * @namespace Namespace of the current web application.
-         */
-        window.gasstationsapp = window.gasstationsapp || {};
+window.gasstationsapp = window.gasstationsapp || {};
 
 /**
  * @namespace Namespace for the services.
@@ -35,9 +14,9 @@ window.gasstationsapp.services = window.gasstationsapp.services || {};
 var ns_services = window.gasstationsapp.services;
 
 /*
- * 
+ *
  * mapping constants
- * key: field name of data returned by service 
+ * key: field name of data returned by service
  * value: field name of data to be stored into model. This should be the same for all services
  */
 
@@ -93,7 +72,7 @@ ns_services.CONSTANTS = (function() {
 
 /**
  * Creates a GasStationsService_INRIX.
- * 
+ *
  * @class Class that is used by the Models to obtain gas stations data.
  * @exports ns_services as window.gasstationsapp.services
  */
@@ -101,7 +80,7 @@ ns_services.GasStationsService_INRIX = function() {
 
     /**
      * public properties
-     * 
+     *
      */
 
     // constants
@@ -138,10 +117,10 @@ ns_services.GasStationsService_INRIX = function() {
 
 
 /**
- * Set gas stations data 
- * 
+ * Set gas stations data
+ *
  * @param newData gas stations value
- * 
+ *
  */
 ns_services.GasStationsService_INRIX.prototype.setGasStationsData = function(newData) {
     this.gasStationsData['stations'] = newData;
@@ -150,7 +129,7 @@ ns_services.GasStationsService_INRIX.prototype.setGasStationsData = function(new
 
 /*
  * Initializes Inrix Platform using VendorID and Mobile token
- * 
+ *
  * @returns {undefined}
  */
 function InitializeInrixPlatform()
@@ -176,9 +155,9 @@ function InitializeInrixPlatform()
 
 /**
  * Retrieves initial data.
- * 
+ *
  * @returns the initial data
- * 
+ *
  */
 ns_services.GasStationsService_INRIX.prototype.getInitialData = function() {
     return {};
@@ -189,11 +168,11 @@ ns_services.GasStationsService_INRIX.prototype.getInitialData = function() {
  * keys. Must be called when returning data to Model; in order to follow Model's
  * structure e.g. data { first: 26, second: 37 } will be mapped into data { 1st:
  * 26, 2nd: 38 }
- * 
+ *
  * @returns the new array with keys mapped using keymap
  * @param data the original array
  * @param keymap the name of the keymap that will be used for key mapping. The keymap be fetched from CONSTANTS
- * 
+ *
  */
 
 ns_services.GasStationsService_INRIX.prototype.copyArrayUsingKeyMap = function(
@@ -212,15 +191,15 @@ ns_services.GasStationsService_INRIX.prototype.copyArrayUsingKeyMap = function(
 
 /**
  * Retrieves gas stations data from Inrix service. Using Inrix callAPI
- * 
+ *
  * @returns the gas stations data
- * 
- 
+ *
+
  * @param {array} options includes
  *                  radius: radius from center
- *                  {boolean} adhoc if request is ad-hoc, success function 
+ *                  {boolean} adhoc if request is ad-hoc, success function
  *          must call back to notify MODEL as soon as data arrives
- * 
+ *
  */
 ns_services.GasStationsService_INRIX.prototype.getGasStationsData = function(
         options) {
@@ -240,7 +219,7 @@ ns_services.GasStationsService_INRIX.prototype.getGasStationsData = function(
     options.action = 'Mobile.GasStation.Radius';
     options.Center = latitude + "|" + longitude;
     options.Radius = radius;
-    //options.ProductType = 
+    //options.ProductType =
     options.success = function(data) {
 
         /* storing data */
@@ -310,7 +289,7 @@ ns_services.GasStationsService_INRIX.prototype.getGasStationsData = function(
             gasStationsArray.push(gasStationMapped);
         }
 
-        //since INRIX service does not sort its stations result, 
+        //since INRIX service does not sort its stations result,
         //this method sorts the list manually, based on gasstations data options defined earlier by CONTROLLER
 
         if (options['sortBy'] === "price") {
@@ -367,7 +346,7 @@ ns_services.GasStationsService_INRIX.prototype.getGasStationsData = function(
 /**
  * Retrieves a single gas station data from Inrix.
  * Callback MODEL when new data arrives
- * 
+ *
  * @param options
  *            the options in request url options has distance, latitude and
  *            longitude this is a temporary storage because Inrix does not

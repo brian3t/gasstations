@@ -1,9 +1,9 @@
 ﻿/**
-* 
+*
 * @file ServiceManager.js
-* @fileOverview 
+* @fileOverview
 * File containing the implementation of the ServiceManager singleton.
-* 
+*
 * @author Abalta Technologies, Inc.
 * @date March, 2013
 *
@@ -36,13 +36,13 @@ window.gasstationsapp.services = window.gasstationsapp.services || {};
 */
 window.gasstationsapp.services.ServiceManager = (function (undefined) {
 
-    /** 
+    /**
     * @exports instance as window.gasstationsapp.services.ServiceManager
-    * @ignore 
+    * @ignore
     */
     var instance = {};
 
-    /** 
+    /**
     * Holds an instance of a GasStationsService.
     */
     instance.gasStationsService = null;
@@ -52,9 +52,9 @@ window.gasstationsapp.services.ServiceManager = (function (undefined) {
     */
     instance.init = function() {
         //toggle between MyGasFeed and INRIX by commenting out the appropriate line
-//        instance.gasStationsService = new window.gasstationsapp.services.GasStationsService_MyGasFeed();
-        instance.gasStationsService = new window.gasstationsapp.services.GasStationsService_INRIX();
-        
+       instance.gasStationsService = new window.gasstationsapp.services.GasStationsService_MyGasFeed();
+        // instance.gasStationsService = new window.gasstationsapp.services.GasStationsService_INRIX();
+
     };
 
     return instance;

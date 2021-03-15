@@ -1,28 +1,7 @@
 ﻿/**
- * 
- * @file GasStationsService_MyGasFeed.js
- * @fileOverview 
- * File containing the declaration of the GasStationsService_MyGasFeed class.
- * 
- * @author Abalta Technologies, Inc.
- * @date March, 2013
- *
- * @cond Copyright
- *
- * COPYRIGHT 2007 ABALTA TECHNOLOGIES or "CUSTOMER NAME"
- * ALL RIGHTS RESERVED.<p>
- * This program may not be reproduced, in whole or in
- * part in any form or any means whatsoever without the
- * written permission of ABALTA TECHNOLOGIES or "CUSTOMER
- * NAME".
- *
- * @endcond
+ * @namespace Namespace of the current web application.
  */
-
-        /**
-         * @namespace Namespace of the current web application.
-         */
-        window.gasstationsapp = window.gasstationsapp || {};
+window.gasstationsapp = window.gasstationsapp || {};
 
 /**
  * @namespace Namespace for the services.
@@ -87,7 +66,7 @@ ns_services.CONSTANTS = (function() {
 
 /**
  * Creates a GasStationsService_MyGasFeed.
- * 
+ *
  * @class Class that is used by the Models to obtain gas stations data.
  * @exports ns_services as window.gasstationsapp.services
  */
@@ -95,7 +74,7 @@ ns_services.GasStationsService_MyGasFeed = function() {
 
     /**
      * public properties
-     * 
+     *
      */
 
     // constants
@@ -127,9 +106,9 @@ ns_services.GasStationsService_MyGasFeed = function() {
 
 /**
  * Retrieves initial data.
- * 
+ *
  * @returns the initial data
- * 
+ *
  */
 ns_services.GasStationsService_MyGasFeed.prototype.getInitialData = function() {
     return {};
@@ -140,11 +119,11 @@ ns_services.GasStationsService_MyGasFeed.prototype.getInitialData = function() {
  * keys. Must be called when returning data to Model; in order to follow Model's
  * structure e.g. data { first: 26, second: 37 } will be mapped into data { 1st:
  * 26, 2nd: 38 }
- * 
+ *
  * @returns the new array with keys mapped using keymap
  * @param data: the original array
  * @param keymap: the name of the keymap that will be used for key mapping. The keymap be fetched from CONSTANTS
- * 
+ *
  */
 
 ns_services.GasStationsService_MyGasFeed.prototype.copyArrayUsingKeyMap = function(
@@ -164,16 +143,16 @@ ns_services.GasStationsService_MyGasFeed.prototype.copyArrayUsingKeyMap = functi
 /**
  * Retrieves gas stations data from mygasfeed service. Also generates state code
  * created from map
- * 
+ *
  * @param {array} options {
  *        fuelType, sortBy,
- *        {boolean} adhoc if request is ad-hoc, success function 
+ *        {boolean} adhoc if request is ad-hoc, success function
  *          must call back to notify MODEL as soon as data arrives
  *   }
- * 
+ *
  * @returns the gas stations data
- * 
- * 
+ *
+ *
  */
 ns_services.GasStationsService_MyGasFeed.prototype.getGasStationsData = function(
         options) {
@@ -246,7 +225,7 @@ ns_services.GasStationsService_MyGasFeed.prototype.getGasStationsData = function
 /**
  * Retrieves a single gas station data from mygasfeed.
  * Callback MODEL when new data arrives
- * 
+ *
  * @param options:
  *            the options in request url options has distance, latitude and
  *            longitude this is a temporary storage because mygasfeed does not
@@ -284,7 +263,7 @@ ns_services.GasStationsService_MyGasFeed.prototype.getSingleGasStationData = fun
                 .dateFormatAMPM(timestamp);
 
         //set updated date to be regular date
-        //todo compare dates to get the least value between reg_date, pre_date and diesel_date 
+        //todo compare dates to get the least value between reg_date, pre_date and diesel_date
         data['details']['date'] = newDetail['regular_date'];
         if (typeof data['details']['date'] === "undefined") {
             data['details']['date'] = "";
